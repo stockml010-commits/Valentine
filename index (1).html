@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-color: #FFF5E1; /* Cream lembut */
+            --primary-color: #5D1924; /* Merah Maroon Elegan */
+            --accent-color: #FFC5C5; /* Pink Pastel */
+            --text-color: #4A4A4A;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+        }
+
+        /* --- Section: Intro Overlay --- */
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: transform 1s ease-in-out;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #intro.slide-up {
+            transform: translateY(-100%);
+        }
+
+        .heart-beat {
+            font-size: 3rem;
+            animation: beat 1s infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+
+        .btn-enter {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid var(--bg-color);
+            color: var(--bg-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 50px;
+        }
+
+        .btn-enter:hover {
+            background: var(--bg-color);
+            color: var(--primary-color);
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            padding: 80px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #7a7a7a;
+        }
+
+        /* --- Timeline Story --- */
+        .timeline-item {
+            border-left: 2px solid var(--accent-color);
+            padding-left: 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '❤';
+            position: absolute;
+            left: -11px;
+            top: 0;
+            background: var(--bg-color);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* --- Little Things Cards --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) rotate(2deg);
+            border: 1px solid var(--accent-color);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- Surprise Section --- */
+        .surprise-box {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .surprise-content {
+            display: none; /* Hidden by default */
+        }
+
+        .surprise-content.show {
+            display: block;
+            animation: fadeIn 1s;
+        }
+
+        .btn-surprise {
+            padding: 15px 40px;
+            background: var(--accent-color);
+            border: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .btn-surprise:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="intro">
+        <div class="heart-beat">💌</div>
+        <h2>Untuk Seseorang yang Spesial</h2>
+        <p style="margin-top: 10px; max-width: 400px; font-size: 0.9rem;">
+            Ada dunia kecil di dalam sini. <br>Dibuat khusus untukmu, dibuka pelan-pelan ya.
+        </p>
+        <button class="btn-enter" onclick="enterSite()">Buka Kotak</button>
+    </div>
+
+    <div class="container">
+        
+        <section class="hero">
+            <h3>Happy Valentine's Day</h3>
+            <h1>Sayangku [Nama Pasangan]</h1>
+            <p>Simpan link ini. Ini ruang rahasia kita.</p>
+            <div style="font-size: 2rem; margin-top: 20px;">👇</div>
+        </section>
+
+        <section id="story">
+            <h2>Perjalanan Kita</h2>
+            <p style="margin-bottom: 30px;">Setiap detik bersamamu adalah adegan favoritku.</p>
+            
+            <div class="timeline-item">
+                <h3>Pertama Kali Ketemu</h3>
+                <p>Ingat nggak? Waktu itu canggung banget, tapi entah kenapa aku ngerasa ada yang beda dari kamu.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Momen Lucu</h3>
+                <p>Waktu kita [Tulis kenangan lucu/salah paham/nyasar]. Itu bodoh banget sih, tapi aku ketawa kalau ingat itu.</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>Hari Ini</h3>
+                <p>Dan lihat kita sekarang. Masih sama-sama belajar, masih sama-sama keras kepala, tapi untungnya masih sama-sama sayang.</p>
+            </div>
+        </section>
+
+        <section id="favorites">
+            <h2>Hal Kecil yang Aku Suka</h2>
+            <p>Kamu mungkin nggak sadar, tapi aku perhatiin ini lho:</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <span class="card-icon">☕</span>
+                    <h4>Caramu Minum Kopi</h4>
+                    <p>Selalu harus ditiup dulu 3 kali, padahal udah dingin.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">😤</span>
+                    <h4>Waktu Kamu Ngomel</h4>
+                    <p>Serem sih, tapi kadang lucu. Bibirnya itu lho.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🎶</span>
+                    <h4>Selera Musikmu</h4>
+                    <p>Aneh, tapi perlahan aku jadi ikut suka juga.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🤝</span>
+                    <h4>Caramu Support Aku</h4>
+                    <p>Makasih ya udah selalu ada pas aku capek.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="surprise">
+            <div class="surprise-box">
+                <div id="locked-content">
+                    <h3>🎁 Satu Hadiah Terakhir</h3>
+                    <p style="margin-bottom: 20px;">Tarik napas dulu. Klik tombol di bawah ini kalau udah siap.</p>
+                    <button class="btn-surprise" onclick="openSurprise()">Buka Sekarang</button>
+                </div>
+
+                <div id="unlocked-content" class="surprise-content">
+                    <h2 style="color: var(--bg-color)">I Love You, [Nama Panggilan]!</h2>
+                    <br>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Terima kasih sudah jadi rumah buat aku. Terima kasih sudah sabar menghadapi egoku.
+                        Aku nggak janji hubungan ini bakal mulus terus, tapi aku janji bakal selalu berusaha buat kita.
+                        <br><br>
+                        Happy Valentine's Day. <br>
+                        Ayo makan enak hari ini! 🍔🍜
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        Dibuat dengan ❤️ dan sedikit begadang oleh [Nama Kamu]
+    </footer>
+
+    <script>
+        // 1. Fungsi Masuk (Menghilangkan Cover)
+        function enterSite() {
+            const intro = document.getElementById('intro');
+            intro.classList.add('slide-up');
+            
+            // Opsional: Play musik otomatis jika browser mengizinkan
+            // document.getElementById('bg-music').play();
+        }
+
+        // 2. Fungsi Scroll Animation (Muncul bertahap)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 3. Fungsi Surprise (Confetti & Pesan)
+        function openSurprise() {
+            document.getElementById('locked-content').style.display = 'none';
+            document.getElementById('unlocked-content').classList.add('show');
+
+            // Efek Kembang Api Kertas (Confetti)
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
